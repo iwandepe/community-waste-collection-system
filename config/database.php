@@ -122,6 +122,7 @@ return [
             'password' => env('DB_PASSWORD'),
             'options'  => [
                 'database' => env('DB_AUTHENTICATION_DATABASE', 'admin'), // optional
+                'retryWrites' => false,
             ],
         ],
 
