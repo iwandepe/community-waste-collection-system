@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HouseholdRequest;
 use App\Http\Resources\HouseholdResource;
+use App\Models\Household;
 use App\Services\HouseholdService;
 use Illuminate\Http\Request;
 
@@ -46,5 +47,13 @@ class HouseholdController extends Controller
         return $this->households->delete($id)
             ? response()->json(['message' => 'Deleted'])
             : response()->json(['message' => 'Not found'], 404);
+    }
+
+    public function restore($id)
+    {
+        $household = Household::withTrashed()->findOrFail($id);
+        $household->restore();
+
+        return response()->json(['message' => 'Household restored']);
     }
 }

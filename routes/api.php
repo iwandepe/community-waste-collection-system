@@ -20,6 +20,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('payments/{id}/confirm', [PaymentController::class, 'confirm']);
 });
 
+Route::post('households/{id}/restore', [HouseholdController::class, 'restore']);
 Route::apiResource('households', HouseholdController::class);
 
 Route::prefix('pickups')->group(function () {

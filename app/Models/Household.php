@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use MongoDB\Laravel\Eloquent\Model;
 
 class Household extends Model
 {
+    use SoftDeletes;
+    
     protected $connection = 'mongodb';
     protected $collection = 'households';
 
@@ -20,6 +23,8 @@ class Household extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function wastes()
     {
