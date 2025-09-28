@@ -33,7 +33,7 @@ Backend API for managing household waste collection. The API is built with Larav
 ## Usage
 - API Base URL: http://localhost:8000  
 - Authentication via JWT:  
-  Authorization: Bearer <token>  
+  Authorization: Bearer "token"
 
 ## API Samples
 

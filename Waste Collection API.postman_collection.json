@@ -1,0 +1,752 @@
+{
+	"info": {
+		"_postman_id": "31b1c7c5-0a99-4e6e-9230-4835d83fc8f6",
+		"name": "Waste Collection API",
+		"description": "Postman collection for Community Waste Collection API (Households, Pickups, Payments, Reports)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14890465",
+		"_collection_link": "https://blue-meadow-758500.postman.co/workspace/My-Workspace~7d49ca0b-62b7-4799-847c-ffd72d45c4da/collection/14890465-31b1c7c5-0a99-4e6e-9230-4835d83fc8f6?action=share&source=collection_link&creator=14890465"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const jsonData = pm.response.json();",
+									"const accessToken = jsonData.token;",
+									"",
+									"pm.collectionVariables.set(\"token\", accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const jsonData = pm.response.json();",
+									"const accessToken = jsonData.token;",
+									"",
+									"pm.collectionVariables.set(\"token\", accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Households",
+			"item": [
+				{
+					"name": "Create Household",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"owner_name\": \"Gibran\",\n    \"address\": \"Jl. Merdeka Solo\",\n    \"block\": \"A\",\n    \"no\": \"12\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/households",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"households"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Households",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/households",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"households"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Household by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/households/68d8e25ea177149d41029f12",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"households",
+								"68d8e25ea177149d41029f12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Household",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"owner_name\": \"Namaku Gibran\",\n    \"address\": \"Jl. Merdeka Solo\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/households/68d8e25ea177149d41029f12",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"households",
+								"68d8e25ea177149d41029f12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Household",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/households/68d8e25ea177149d41029f12",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"households",
+								"68d8e25ea177149d41029f12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restore Household",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/households/68d8e25ea177149d41029f12/restore",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"households",
+								"68d8e25ea177149d41029f12",
+								"restore"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pickups",
+			"item": [
+				{
+					"name": "Create Pickup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"household_id\": \"68d6a923f93e1c124c0ac604\",\n    \"type\": \"organic\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pickups",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pickups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Pickups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pickups",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pickups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Schedule Pickup",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pickup_date\": \"2025-10-01 10:00:00\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pickups/68d6aab7116c4fb764057f04/schedule",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pickups",
+								"68d6aab7116c4fb764057f04",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Pickup",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pickups/68d6aab7116c4fb764057f04/complete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pickups",
+								"68d6aab7116c4fb764057f04",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Pickup",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pickups/68d6aab7116c4fb764057f04/cancel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pickups",
+								"68d6aab7116c4fb764057f04",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "List Payments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/payments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Payment (manual)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"household_id\": \"68d8e25ea177149d41029f12\",\n  \"amount\": 50000,\n  \"status\": \"pending\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/payments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/payments/68d8e31ba177149d41029f14/confirm",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"68d8e31ba177149d41029f14",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "Waste Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reports/waste-summary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"waste-summary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reports/payment-summary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"payment-summary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Household Pickup History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reports/households/68d6a923f93e1c124c0ac604/history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"households",
+								"68d6a923f93e1c124c0ac604",
+								"history"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000"
+		},
+		{
+			"key": "household_id",
+			"value": ""
+		},
+		{
+			"key": "pickup_id",
+			"value": ""
+		},
+		{
+			"key": "payment_id",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
