@@ -11,16 +11,16 @@ class ReportController extends Controller
 
     public function wasteSummary()
     {
-        return response()->json($this->reports->wasteSummary());
+        return response()->json(['data' => $this->reports->wasteSummary()]);
     }
 
     public function paymentSummary()
     {
-        return response()->json($this->reports->paymentSummary());
+        return response()->json(['data' => $this->reports->paymentSummary()]);
     }
 
     public function householdHistory(string $id)
     {
-        return response()->json($this->reports->householdHistory($id));
+        return response()->json(['data' => $this->reports->householdHistory($id)]);
     }
 }

@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('auth//profile', [AuthController::class, 'me']);
-    Route::post('auth//logout', [AuthController::class, 'logout']);
-    Route::post('auth//refresh', [AuthController::class, 'refresh']);
+    Route::get('auth/profile', [AuthController::class, 'me']);
+    Route::post('auth/logout', [AuthController::class, 'logout']);
+    Route::post('auth/refresh', [AuthController::class, 'refresh']);
 
     Route::put('pickups/{id}/complete', [WasteController::class, 'complete']);
     Route::put('payments/{id}/confirm', [PaymentController::class, 'confirm']);
