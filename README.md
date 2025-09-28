@@ -19,10 +19,15 @@ Backend API for managing household waste collection. The API is built with Larav
     docker-compose up -d --build  
     ```
 
-6. Generate application key and JWT secret  
+4. Generate application key and JWT secret  
     ```bash
     docker exec -it waste-collection-app php artisan key:generate
     docker exec -it waste-collection-app php artisan jwt:secret
+    ```
+
+5. Run Seeder Admin Account
+    ```bash
+    docker exec -it waste-collection-app php artisan db:seed
     ```
     
 ## Usage
